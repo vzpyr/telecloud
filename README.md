@@ -22,7 +22,7 @@ You can create a new App [here](https://my.telegram.org/apps).
 git clone https://github.com/FujiwaraChoki/TeleSync.git
 cd TeleSync
 ```
-**Before installing dependencies you  have  to create virtual environment(mandatory)**
+**Before installing dependencies you  have  to create a virtual environment(mandatory)**
 
 ## linux 
 
