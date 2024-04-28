@@ -22,15 +22,17 @@ You can create a new App [here](https://my.telegram.org/apps).
 git clone https://github.com/FujiwaraChoki/TeleSync.git
 cd TeleSync
 ```
-**Before installing dependencies you  have  to create a virtual environment(mandatory)**
 
-## linux 
+> ⚠️: In order to install the dependencies flawlessly, please follow the instructions step-by-step.
+
+## Linux
 
 ```bash 
 python -m venv venv
 source venv/bin/activate
 ```
-## windows 
+
+## Windows
 
 ```bash
 python -m venv venv
@@ -44,8 +46,12 @@ pip install -r requirements.txt
 # Copy the example.config.json to config.json
 cp example.config.json config.json # Edit the config.json file with your own settings
 ```
- **Give run.sh execution permission**
-`chmod +x run.sh` ( for linux only )
+
+Next, give the `run.sh` Shell-Script executable permissions:
+
+```bash
+chmod +x run.sh
+```
 
 ## Configuration
 
@@ -100,11 +106,6 @@ To run TeleSync on Linux, navigate to the TeleSync directory in your terminal an
 ```bash
 ./run.sh [COMMAND] [ARGUMENTS]
 ```
-or if you added to path then you can run from anywhere 
-
-```bash
-run.sh [COMMAND] [ARGUMENTS]
-```
 
 ### Windows
 
@@ -113,11 +114,8 @@ To run TeleSync on Windows, open Command Prompt, navigate to the TeleSync direct
 ```bash
 .\run.bat [COMMAND] [ARGUMENTS]
 ```
-or if you have added to path you run from anywhere 
-```bash
-run.bat [COMMAND] [ARGUMENTS]
-```
 
+> ⚡: If you added `TeleSync` to your `PATH`, you may run the script from anywhere.
 
 ## License
 
@@ -125,8 +123,8 @@ This project is licensed under the GNU General Public License v3.0 - see the [LI
 
 ## Issues
 
-If you found a **bug**, please to open an [issue](https://github.com/FujiwaraChoki/TeleSync/issues). Issues that are not related to bugs will be closed.
+If you find a **bug**, please to open an [issue](https://github.com/FujiwaraChoki/TeleSync/issues). Issues that are not related to bugs will be closed.
 
 ## Contributing
 
-> Only Pull Requests with fixes or/and improvements will be accepted.
+Only **Pull Request**s with **fixes** or/and **improvements** will be accepted.
