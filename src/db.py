@@ -1,12 +1,14 @@
 import json
 import sqlite3
-
+import os
 from datetime import datetime
 
 
 class Database:
     def __init__(self, db):
-        self.conn = sqlite3.connect(db)
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(script_dir, db)
+        self.conn = sqlite3.connect(db_path)
         self.cur = self.conn.cursor()
         self.cur.execute(
             "CREATE TABLE IF NOT EXISTS file (id text PRIMARY KEY, file_name text, file_path text, file_size integer, chunks text, type text, uploaded text)"

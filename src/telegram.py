@@ -23,9 +23,11 @@ class Telegram:
     def __init__(self):
         self._api_id = get_telegram_api_id()
         self._api_hash = get_telegram_api_hash()
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        session_path = os.path.join(script_dir, "anon.session")
         if VERBOSE:
             print(colored("[INFO] Initializing Telegram Client...", "magenta"))
-        self._client = TelegramClient("anon", self.api_id, self.api_hash)
+        self._client = TelegramClient(session=session_path, api_id=self._api_id, api_hash=self._api_hash)
         if VERBOSE:
             print(colored(f"[INFO] Connecting to Telegram via \"{PHONE}\""))
         self._client.start(phone=PHONE)
