@@ -28,8 +28,8 @@ telecloud is currently only a backend which can be used for other things.
 # commands
 | command                        | description                                  |
 | ------------------------------ | -------------------------------------------- |
-| `register`                     | create a telecloud account                   |
-| `viewtoken <user> <pass>`      | view your token                              |
+| `register`                     | create a local telecloud account             |
+| `viewtoken <user> <pass>`      | view your token if you didn't save it        |
 | `<token> upload [FILE_NAME]`   | upload a file to telegram & your account     |
 | `<token> download [FILE_NAME]` | download a file from telegram & your account |
 | `<token> remove [FILE_NAME]`   | remove a file from telegram & your account   |
