@@ -17,7 +17,7 @@ telecloud is currently only a backend which can be used for other things.
 - python3 and the required modules
 
 # config
-| entry          | description                                                              |
+| variable       | description                                                              |
 | -------------- | ------------------------------------------------------------------------ |
 | `api_id`       | your telegram api id                                                     |
 | `api_hash`     | your telegram api hash                                                   |
