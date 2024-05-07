@@ -1,130 +1,46 @@
-# TeleSync
+# telecloud
+telecloud is a simple app which allows you to save unlimited files on telegram's cloud storage
 
-An application to store your local files on Telegram.
+# features
+- uploading, downloading, removing and listing files
+- infinite storage
+- free & open-source
+- easy to setup
 
-> 📸 Watch the video on [YouTube](https://youtu.be/vCAcc_q-NNw)
+# forked ?
+telecloud was forked by [telesync](https://github.com/FujiwaraChoki/TeleSync), make sure to check out his project too
+i wanted to add an account system to this, so i could host a public instance ([keqing.cloud](https://keqing.cloud/)) and everyone had access to free storage
+telecloud is currently only a backend which can be used for other things
 
-## Features
+# requirements
+- api id and hash from [here](https://my.telegram.org/apps)
+- python3 and the required modules
 
-- Infinite storage (No limit)
-- Easy to use
-- Fast and secure
-- Free & Open Source
+# config
+| entry          | description                                                              |
+| -------------- | ------------------------------------------------------------------------ |
+| `api_id`       | your telegram api id                                                     |
+| `api_hash`     | your telegram api hash                                                   |
+| `phone_number` | your telegram phone number                                               |
+| `db_file`      | any name for the database `files.db`)                                    |
+| `verbose`      | set to `true` if you want telecloud to log everything, otherwise `false` |
 
-## Prerequisites
+# commands
+| command                        | description                                  |
+| ------------------------------ | -------------------------------------------- |
+| `register`                     | create a telecloud account                   |
+| `viewtoken <user> <pass>`      | view your token                              |
+| `<token> upload [FILE_NAME]`   | upload a file to telegram & your account     |
+| `<token> download [FILE_NAME]` | download a file from telegram & your account |
+| `<token> remove [FILE_NAME]`   | remove a file from telegram & your account   |
+| `<token> list`                 | list all files in your account               |
 
-You need a Telegram API ID and API Hash.
-You can create a new App [here](https://my.telegram.org/apps).
+# how to setup
+1. clone this repo
+2. open the folder and run ```pip install -r requirements.txt```
+3. fill in everything in ```example.json``` and rename the file to ```config.json```
+4. run ```python3 run.py register``` and create a local telecloud account, securely save your token somewhere
+5. then you can use ```python3 run.py <token> <command>``` to run commands
 
-## Installation
-
-```bash
-git clone https://github.com/FujiwaraChoki/TeleSync.git
-cd TeleSync
-```
-
-> ⚠️: In order to install the dependencies flawlessly, please follow the instructions step-by-step.
-
-## Linux
-
-```bash 
-python -m venv venv
-source venv/bin/activate
-```
-
-## Windows
-
-```bash
-python -m venv venv
-.\venv\Scripts\activate
-```
-
-Then, continue with the installation:
-
-```bash 
-pip install -r requirements.txt
-# Copy the example.config.json to config.json
-cp example.config.json config.json # Edit the config.json file with your own settings
-```
-
-Next, give the `run.sh` Shell-Script executable permissions:
-
-```bash
-chmod +x run.sh
-```
-
-## Configuration
-
-| Option         | Description                                                                |
-| -------------- | -------------------------------------------------------------------------- |
-| `api_id`       | Your Telegram API ID.                                                      |
-| `api_hash`     | Your Telegram API Hash.                                                    |
-| `phone_number` | Your phone number, which you use for Telegram.                             |
-| `db_file`      | The name of the database file. (Default: `files.db`)                       |
-| `verbose`      | If `true`, the application will print more information. (Default: `false`) |
-
-
-### Commands
-
-| Command                 | Description                            |
-| ----------------------- | -------------------------------------- |
-| `upload [FILE_QUERY]`   | Upload a file to Telegram              |
-| `download [FILE_QUERY]` | Download a file from Telegram          |
-| `remove [FILE_QUERY]`   | Delete a file from Telegram            |
-| `list`                  | List all files in the Telegram Channel |
-
-`FILE_QUERY` can be the file name, file path, the ID of the file, or a part of the file name.
-
-## Adding Script to PATH
-
-### Linux
-
-To add the script to the PATH in Linux, you can modify the `~/.bashrc` file:
-
-```bash
-export PATH="$PATH:/path/to/TeleSync"
-```
-### Windows
-
-To add the script to the PATH in Windows, you can follow these steps:
-
-1. Search for "Environment Variables" in the Start menu.
-2. Click on "Edit the system environment variables".
-3. In the System Properties window, click on the "Environment Variables..." button.
-4. In the Environment Variables window, under System variables, find the Path variable and select it.
-5. Click on the "Edit..." button.
-6. Click on the "New" button and add the path to the TeleSync directory.
-7. Click "OK" on all windows to apply the changes.
-
-
-## Running
-
-### Linux
-
-To run TeleSync on Linux, navigate to the TeleSync directory in your terminal and execute the following command:
-
-```bash
-./run.sh [COMMAND] [ARGUMENTS]
-```
-
-### Windows
-
-To run TeleSync on Windows, open Command Prompt, navigate to the TeleSync directory, and execute the following command:
-
-```bash
-.\run.bat [COMMAND] [ARGUMENTS]
-```
-
-> ⚡: If you added `TeleSync` to your `PATH`, you may run the script from anywhere.
-
-## License
-
-This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
-
-## Issues
-
-If you find a **bug**, please to open an [issue](https://github.com/FujiwaraChoki/TeleSync/issues). Issues that are not related to bugs will be closed.
-
-## Contributing
-
-Only **Pull Request**s with **fixes** or/and **improvements** will be accepted.
+# problems
+if you have a problem with telecloud, open an [issue](https://github.com/v1peeer/telecloud/issues)
