@@ -1,9 +1,7 @@
 import os
 import sys
 
-
 def parse_bytes(bytes: int):
-    # Parse bytes to human-readable format
     for unit in ["B", "KB", "MB", "GB", "TB"]:
         if bytes < 1024:
             return f"{bytes:.2f} {unit}"
@@ -11,15 +9,11 @@ def parse_bytes(bytes: int):
 
 
 def split_file_into_chunks(absolute_path: str):
-    # Splits the file into chunks
-    # so Telegram can handle it (2GB max)
     chunks = []
 
     file_size = os.path.getsize(absolute_path)
 
-    # 2GB max file size
     if file_size > 2000000000:
-        # Split the file into chunks
         with open(absolute_path, "rb") as file:
             print(f"Splitting {absolute_path} into chunks...")
             chunk_num = 0
@@ -31,7 +25,6 @@ def split_file_into_chunks(absolute_path: str):
                 root_dir = os.path.dirname(sys.argv[0])
                 temp_dir = os.path.join(root_dir, "temp")
 
-                # Write the chunk to a file in `temp`
                 chunk_file_path = os.path.join(
                     temp_dir,
                     f"{absolute_path}-{chunk_num}.chunk",
@@ -47,7 +40,6 @@ def split_file_into_chunks(absolute_path: str):
         return chunks
 
     else:
-        # No need to split the file
         with open(absolute_path, "rb") as file:
             chunks.append(file.read())
 
