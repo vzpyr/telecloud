@@ -8,9 +8,9 @@ telecloud is a simple app which allows you to save unlimited files on telegram's
 - easy to setup
 
 # forked ?
-telecloud was forked by [telesync](https://github.com/FujiwaraChoki/TeleSync), make sure to check out his project too
-i wanted to add an account system to this, so i could host a public instance ([keqing.cloud](https://keqing.cloud/)) and everyone had access to free storage
-telecloud is currently only a backend which can be used for other things
+telecloud was forked by [telesync](https://github.com/FujiwaraChoki/TeleSync), make sure to check out his project too.
+i wanted to add an account system to this, so i could host a public instance ([keqing.cloud](https://keqing.cloud/)) and everyone had access to free storage.
+telecloud is currently only a backend which can be used for other things.
 
 # requirements
 - api id and hash from [here](https://my.telegram.org/apps)
