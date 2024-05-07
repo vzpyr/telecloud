@@ -1,10 +1,10 @@
 import os
 import uuid
 
-from files import *
-from config import *
+from scripts.files import *
+from scripts.config import *
 from tqdm import tqdm
-from db import Database
+from scripts.db import Database
 from termcolor import colored
 from prettytable import PrettyTable
 from telethon import TelegramClient, events, sync
@@ -15,9 +15,7 @@ PHONE = get_phone()
 
 if VERBOSE:
     import logging
-
     logging.basicConfig(level=logging.DEBUG)
-
 
 class Telegram:
     def __init__(self):
@@ -55,11 +53,10 @@ class Telegram:
     def db(self):
         return self._db
 
-    def list_files(self):
-        # List all files
+    def list_files(self, token):
         if VERBOSE:
             print(colored("[INFO] Fetching files..."))
-        files = self.db.fetch()
+        files = self.db.fetch_files_by_token(token)
         if VERBOSE:
             print(colored(f"[SUC] Found {len(list(files))} files."))
         table = PrettyTable()
@@ -87,17 +84,16 @@ class Telegram:
 
         print(table)
 
-    def download_file(self, file_query: str):
-        # Download a file
+    def download_file(self, file_query, token):
         print(colored(f'[*] Searching for "{file_query}"...', "blue"))
-        file = self.db.find_file_by_name_or_path_or_id(file_query)
-
-        if file[0][-2] == "dir":
-            self.download_directory(file_query)
-            return
+        file = self.db.find_file_by_name_or_path_or_id(file_query, token)
 
         if not file:
-            print(colored(f"[-] File {file_query} not found.", "red"))
+            print(colored(f"[-] File {file_query} not found or not owned by you.", "red"))
+            return
+
+        if file[0][-2] == "dir":
+            self.download_directory(file_query, token)
             return
 
         file = file[0]
@@ -107,36 +103,26 @@ class Telegram:
 
         print(colored(f"\n[+] Downloading {len(chunks)} chunk(s).", "magenta"))
 
-        # Download each chunk
         with self.client.start() as client:
-            # Loop through each chunk
             for chunk_num, chunk_path in enumerate(chunks):
-                # Build the caption, to search for the message
-                # that contains the chunk we need.
                 caption = f"{file[0]}:::::{file[2]}:::::{str(chunk_num)}:::::file"
                 messages = client.get_messages("me", search=caption)
 
-                # Loop through each message
                 for message in messages:
-                    # Check if message contains the chunk we need
                     if message.message.split(":::::")[0] == file[0]:
-                        # Download the chunk in temp directory
                         client.download_media(message, file=chunk_path)
 
-                        # Read the chunk
                         with open(chunk_path, "rb") as chunk_file:
                             chunk = chunk_file.read()
 
-                            # Append the chunk to the file
                             with open(file_path, "ab") as file:
                                 file.write(chunk)
 
         print(colored(f"[+] Downloaded file \"{file_name}\" to \"{file_path}\".", "green"))
 
-    def remove_file(self, file_query: str):
-        # Remove a file
+    def remove_file(self, file_query, token):
         print(colored(f"[+] Removing file {file_query}...", "green"))
-        file = self.db.find_file_by_name_or_path_or_id(file_query)
+        file = self.db.find_file_by_name_or_path_or_id(file_query, token)
 
         if not file:
             print(colored(f"[-] File/Directory {file_query} not found.", "red"))
@@ -144,10 +130,8 @@ class Telegram:
         
         if file[0][-2] == "file":
             with self.client.start() as client:
-                # Get all messages
                 messages = client.get_messages("me")
 
-                # Find the message with the absolute path in the caption
                 for message in messages:
                     if message.message:
                         if file[0][1]:
@@ -158,10 +142,8 @@ class Telegram:
             print(colored(f"[+] Removed file {file_query}.", "green"))
         else:
             with self.client.start() as client:
-                # Get all messages
                 messages = client.get_messages("me")
 
-                # Find the message with the absolute path in the caption
                 for message in messages:
                     if message.message:
                         if file[0][1]:
@@ -171,23 +153,15 @@ class Telegram:
             self.db.remove(file[0][0])
             print(colored(f"[+] Removed directory {file_query}.", "green"))
 
-    def upload_file(
-        self,
-        current_dir: str,
-        file_path: str,
-        file_name: str,
-    ) -> str:
+    def upload_file(self, current_dir, file_path, file_name, token):
         print(colored(f"[*] Uploading {file_name} to Telegram...", "magenta"))
-        # Upload file to Telegram and get the file URL
         absolute_path = os.path.abspath(os.path.join(current_dir, file_path))
 
-        # Split the file into chunks
         chunks = split_file_into_chunks(absolute_path)
 
         id = uuid.uuid4().__str__().replace("-", "")
         print(colored(f"\n[+] Split {file_name} into {len(chunks)} chunk(s).", "cyan"))
 
-        # Upload each chunk to Telegram
         with self.client.start() as client:
             print()
             progress = tqdm(total=len(chunks))
@@ -202,16 +176,14 @@ class Telegram:
                 )
 
         self.db.insert(
-            id, file_name, absolute_path, os.path.getsize(absolute_path), chunks, "file"
+            id, file_name, absolute_path, os.path.getsize(absolute_path), chunks, "file", token
         )
 
     def upload_directory(self, current_dir: str, dir_path: str, dir_name: str):
         print(colored(f"[*] Uploading {dir_path} to Telegram...", "magenta"))
-
-        # Upload directory to Telegram and get the file URL
+        
         absolute_path = os.path.abspath(os.path.join(current_dir, dir_path))
 
-        # List all files in the directory
         files = os.listdir(absolute_path)
         
         progress = tqdm(total=len(files))
@@ -219,14 +191,12 @@ class Telegram:
         for file in files:
             file_path = os.path.join(absolute_path, file)
             if os.path.isfile(file_path):
-                # Split the file into chunks
                 chunks = split_file_into_chunks(file_path)
 
                 id = uuid.uuid4().__str__().replace("-", "")
                 if VERBOSE:
                     print(colored(f"\n\t[+] Split {file} into {len(chunks)} chunk(s).", "cyan"))
 
-                # Upload each chunk to Telegram
                 with self.client.start() as client:
                     print()
 
@@ -253,7 +223,6 @@ class Telegram:
     def download_directory(self, dir_query: str):
         ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(sys.argv[0])))
 
-        # Download a directory
         files = self.db.find_file_by_name_or_path_or_id("dir")
 
         dir_path = os.path.dirname(files[0][2])
@@ -268,7 +237,6 @@ class Telegram:
         if VERBOSE:
             print(f"[INFO] Downloading {len(files)} files from {dir_path}.")
 
-        # Loop through each file in the directory, and see if it's part of the directory
         for file in files:
             if VERBOSE:
                 print(f"[INFO] Downloading {file[1]}, with ID \"{file[0]}\".")
@@ -280,7 +248,6 @@ class Telegram:
 
                 print(colored(f"[+] Downloading {len(chunks)} chunk(s) to \"{file_name}\".", "magenta"))
 
-                # Download each chunk
                 with self.client.start() as client:
                     for chunk_num, chunk_path in enumerate(chunks):
                         caption = f"{file[0]}:::::{file[2]}:::::{str(chunk_num)}:::::dir"
