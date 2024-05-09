@@ -13,7 +13,7 @@ i wanted to add an account system to this, so i could host a public instance ([k
 telecloud is currently only a backend which can be used for other things.
 
 # license
-so i don't really know anything about license, and if it's fine to license this fork as bsd-3 instead of gpl-3.0, but if there are any problems, please open an issue
+so, i don't really know anything about licenses and if it's even fine to re-license this fork as bsd-3 instead of gpl-3.0, but if there are any problems, please open an issue!
 
 # requirements
 - api id and hash from [here](https://my.telegram.org/apps)
