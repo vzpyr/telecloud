@@ -30,9 +30,9 @@ telecloud is currently only a backend which can be used for other things.
 | ------------------------------ | -------------------------------------------- |
 | `register`                     | create a local telecloud account             |
 | `viewtoken <user> <pass>`      | view your token if you didn't save it        |
-| `<token> upload [FILE_NAME]`   | upload a file to telegram & your account     |
-| `<token> download [FILE_NAME]` | download a file from telegram & your account |
-| `<token> remove [FILE_NAME]`   | remove a file from telegram & your account   |
+| `<token> upload <file_name>`   | upload a file to telegram & your account     |
+| `<token> download <file_name>` | download a file from telegram & your account |
+| `<token> remove <file_name>`   | remove a file from telegram & your account   |
 | `<token> list`                 | list all files in your account               |
 
 # how to setup
