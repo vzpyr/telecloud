@@ -2,7 +2,8 @@
 telecloud is a simple app which allows you to save unlimited files on telegram's cloud storage
 
 # features
-- uploading, downloading, removing and listing files
+- register multiple accounts
+- upload, download, remove and list files
 - infinite storage
 - free & open-source
 - easy to setup
