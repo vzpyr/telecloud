@@ -22,7 +22,7 @@ telecloud is currently only a backend which can be used for other things.
 | `api_id`       | your telegram api id                                                     |
 | `api_hash`     | your telegram api hash                                                   |
 | `phone_number` | your telegram phone number                                               |
-| `db_file`      | any name for the database `files.db`)                                    |
+| `db_file`      | any name for the database file                                           |
 | `verbose`      | set to `true` if you want telecloud to log everything, otherwise `false` |
 
 # commands
