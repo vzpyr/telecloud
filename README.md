@@ -11,7 +11,7 @@ telecloud is a simple app which allows you to save unlimited files on telegram's
 # forked ?
 telecloud was forked by [telesync](https://github.com/FujiwaraChoki/TeleSync), make sure to check out his project too.
 i wanted to add an account system to this, so i could host a public instance ([keqing.cloud](https://keqing.cloud/)) and everyone had access to free storage.
-telecloud is currently only a backend which can be used for other things.
+i'd say telecloud is just a backend, but you can still just use the commands.
 
 # license
 so, i don't really know anything about licenses and if it's even fine to re-license this fork as bsd-3 instead of gpl-3.0, but if there are any problems, please open an issue!
