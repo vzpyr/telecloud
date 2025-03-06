@@ -18,10 +18,13 @@ this is basically [telesync](https://github.com/FujiwaraChoki/TeleSync) but with
 5. use `python3 run.py <token> <command>` to run commands
 
 # example config
-| variable       | description                                                              |
-| -------------- | ------------------------------------------------------------------------ |
-| `api_id`       | your telegram api id (from [here](https://my.telegram.org/apps))         |
-| `api_hash`     | your telegram api hash (from [here](https://my.telegram.org/apps))       |
-| `phone_number` | your telegram phone number                                               |
-| `db_file`      | any name for the database file                                           |
-| `verbose`      | set to `true` if you want telecloud to log everything, otherwise `false` |
+```json
+{
+    "telegram_api_id": "",
+    "telegram_api_hash": "",
+    "phone_number": "",
+    "db_file": "teledrive.db",
+    "verbose": false
+}
+```
+- telegram api id and api hash can be obtained [here](https://my.telegram.org/apps)
